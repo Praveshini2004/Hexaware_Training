@@ -43,29 +43,51 @@ public class Account {
         this.balance = balance;
     }
 
+  public void deposit(float amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited (float): " + amount);
+        }
+    }
+
+    public void deposit(int amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited (int): " + amount);
+        }
+    }
+
     public void deposit(double amount) {
         if (amount > 0) {
             balance += amount;
-            System.out.println("Deposited: " + amount);
-        } else {
-            System.out.println("Invalid deposit amount!");
+            System.out.println("Deposited (double): " + amount);
         }
     }
+
+    public void withdraw(float amount) {
+        if (amount > 0 && balance >= amount) {
+            balance -= amount;
+            System.out.println("Withdrawn (float): " + amount);
+        } else {
+            System.out.println("Insufficient balance!");
+        }
+    }
+
+    public void withdraw(int amount) {
+        if (amount > 0 && balance >= amount) {
+            balance -= amount;
+            System.out.println("Withdrawn (int): " + amount);
+        } else {
+            System.out.println("Insufficient balance!");
+        }
+    }
+
     public void withdraw(double amount) {
         if (amount > 0 && balance >= amount) {
             balance -= amount;
-            System.out.println("Withdrawn: " + amount);
+            System.out.println("Withdrawn (double): " + amount);
         } else {
-            System.out.println("Insufficient balance or invalid amount!");
-        }
-    }
-    public void calculateInterest() {
-        if (accountType.equalsIgnoreCase("Savings")) {
-            double interest = balance * 0.045;
-            balance += interest;
-            System.out.println("Interest added: " + interest);
-        } else {
-            System.out.println("Interest calculation only applies to Savings accounts.");
+            System.out.println("Insufficient balance!");
         }
     }
 
@@ -74,4 +96,9 @@ public class Account {
         System.out.println("Account Type: " + accountType);
         System.out.println("Balance: " + balance);
     }
+
+
+
+
+    
 }

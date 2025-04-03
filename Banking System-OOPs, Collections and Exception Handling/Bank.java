@@ -12,33 +12,31 @@ package bankingmanagementsystem;
 import java.util.*;
 public class Bank {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter Customer ID: ");
-        int customerId = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Enter First Name: ");
-        String firstName = scanner.nextLine();
-        System.out.print("Enter Last Name: ");
-        String lastName = scanner.nextLine();
-        System.out.print("Enter Email: ");
-        String email = scanner.nextLine();
-        System.out.print("Enter Phone: ");
-        String phone = scanner.nextLine();
-        System.out.print("Enter Address: ");
-        String address = scanner.nextLine();
+       Scanner scanner = new Scanner(System.in);
+        Account account = null;
 
-        Customer customer = new Customer(customerId, firstName, lastName, email, phone, address);
-        customer.printCustomerInfo();
+        System.out.println("Select Account Type:");
+        System.out.println("1. Savings Account");
+        System.out.println("2. Current Account");
+        int choice = scanner.nextInt();
 
         System.out.print("Enter Account Number: ");
         int accountNumber = scanner.nextInt();
-        scanner.nextLine();
-        System.out.print("Enter Account Type (Savings/Current): ");
-        String accountType = scanner.nextLine();
         System.out.print("Enter Initial Balance: ");
         double balance = scanner.nextDouble();
 
-        Account account = new Account(accountNumber, accountType, balance);
+        switch (choice) {
+            case 1:
+                account = new SavingsAccount(accountNumber, balance);
+                break;
+            case 2:
+                account = new CurrentAccount(accountNumber, balance);
+                break;
+            default:
+                System.out.println("Invalid choice!");
+                return;
+        }
+
         account.printAccountInfo();
 
         System.out.print("Enter Deposit Amount: ");
@@ -49,7 +47,11 @@ public class Bank {
         double withdrawAmount = scanner.nextDouble();
         account.withdraw(withdrawAmount);
 
-        account.calculateInterest();
+        if (account instanceof SavingsAccount) {
+            ((SavingsAccount) account).calculateInterest();
+        }
+
         account.printAccountInfo();
+        scanner.close();
     }
 }
