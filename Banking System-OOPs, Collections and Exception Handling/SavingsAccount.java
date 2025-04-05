@@ -9,17 +9,39 @@ package bankingmanagementsystem;
  *
  * @author DELL
  */
-public class SavingsAccount extends Account {
-    private double interestRate = 0.045; 
 
-    public SavingsAccount(int accountNumber, double balance) {
-        super(accountNumber, "Savings", balance);
+class SavingsAccount extends BankAccount {
+    private float interestRate;
+
+    public SavingsAccount(String accountNumber, String customerName, float balance, float interestRate) {
+        super(accountNumber, customerName, balance);
+        this.interestRate = interestRate;
     }
 
+    @Override
+    public void deposit(float amount) {
+        if (amount > 0) {
+            balance += amount;
+            System.out.println("Deposited: " + amount);
+        } else {
+            System.out.println("Invalid deposit amount.");
+        }
+    }
 
+    @Override
+    public void withdraw(float amount) {
+        if (amount <= balance) {
+            balance -= amount;
+            System.out.println("Withdrawn: " + amount);
+        } else {
+            System.out.println("Insufficient balance.");
+        }
+    }
+
+    @Override
     public void calculateInterest() {
-        double interest = getBalance() * interestRate;
-        setBalance(getBalance() + interest);
+        float interest = balance * interestRate / 100;
+        balance += interest;
         System.out.println("Interest added: " + interest);
     }
 }

@@ -9,49 +9,79 @@ package bankingmanagementsystem;
  *
  * @author DELL
  */
-import java.util.*;
+import java.util.Scanner;
+
 public class Bank {
     public static void main(String[] args) {
-       Scanner scanner = new Scanner(System.in);
-        Account account = null;
+        Scanner sc = new Scanner(System.in);
+        BankAccount account = null;
 
-        System.out.println("Select Account Type:");
-        System.out.println("1. Savings Account");
-        System.out.println("2. Current Account");
-        int choice = scanner.nextInt();
+        System.out.println("==== Welcome to HexaBank ====");
+        System.out.println("1. Create Savings Account");
+        System.out.println("2. Create Current Account");
+        System.out.print("Enter your choice: ");
+        int choice = sc.nextInt();
+        sc.nextLine();  // Consume newline
 
+        // Common input
         System.out.print("Enter Account Number: ");
-        int accountNumber = scanner.nextInt();
+        String accNo = sc.nextLine();
+        System.out.print("Enter Customer Name: ");
+        String name = sc.nextLine();
         System.out.print("Enter Initial Balance: ");
-        double balance = scanner.nextDouble();
+        float balance = sc.nextFloat();
 
         switch (choice) {
             case 1:
-                account = new SavingsAccount(accountNumber, balance);
+                System.out.print("Enter Interest Rate (%): ");
+                float rate = sc.nextFloat();
+                account = new SavingsAccount(accNo, name, balance, rate);
                 break;
             case 2:
-                account = new CurrentAccount(accountNumber, balance);
+                account = new CurrentAccount(accNo, name, balance);
                 break;
             default:
-                System.out.println("Invalid choice!");
-                return;
+                System.out.println("Invalid option!");
+                System.exit(0);
         }
 
-        account.printAccountInfo();
+        int option;
+        do {
+            System.out.println("\n--- Operations Menu ---");
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Calculate Interest");
+            System.out.println("4. Show Account Details");
+            System.out.println("5. Exit");
+            System.out.print("Choose option: ");
+            option = sc.nextInt();
 
-        System.out.print("Enter Deposit Amount: ");
-        double depositAmount = scanner.nextDouble();
-        account.deposit(depositAmount);
+            switch (option) {
+                case 1:
+                    System.out.print("Enter amount to deposit: ");
+                    float dep = sc.nextFloat();
+                    account.deposit(dep);
+                    break;
+                case 2:
+                    System.out.print("Enter amount to withdraw: ");
+                    float with = sc.nextFloat();
+                    account.withdraw(with);
+                    break;
+                case 3:
+                    account.calculateInterest();
+                    break;
+                case 4:
+                    account.printAccountDetails();
+                    break;
+                case 5:
+                    System.out.println("Thank you for banking with us!");
+                    break;
+                default:
+                    System.out.println("Invalid choice!");
+            }
 
-        System.out.print("Enter Withdraw Amount: ");
-        double withdrawAmount = scanner.nextDouble();
-        account.withdraw(withdrawAmount);
+        } while (option != 5);
 
-        if (account instanceof SavingsAccount) {
-            ((SavingsAccount) account).calculateInterest();
-        }
-
-        account.printAccountInfo();
-        scanner.close();
+        sc.close();
     }
 }
