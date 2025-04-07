@@ -1,44 +1,48 @@
-CREATE TABLE Employee (
-    EmployeeID INT PRIMARY KEY AUTO_INCREMENT,
-    FirstName VARCHAR(50),
-    LastName VARCHAR(50),
-    DateOfBirth DATE,
-    Gender VARCHAR(10),
-    Email VARCHAR(100) UNIQUE,
-    PhoneNumber VARCHAR(15),
-    Address TEXT,
-    Position VARCHAR(50),
-    JoiningDate DATE,
-    TerminationDate DATE NULL
-);
+Create Database Payxpert;
+Use Payxpert;
 
-CREATE TABLE Payroll (
-    PayrollID INT PRIMARY KEY AUTO_INCREMENT,
-    EmployeeID INT,
-    PayPeriodStartDate DATE,
-    PayPeriodEndDate DATE,
-    BasicSalary DECIMAL(10,2),
-    OvertimePay DECIMAL(10,2),
-    Deductions DECIMAL(10,2),
-    NetSalary DECIMAL(10,2),
-    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
-);
+Create Table Employee(
+EmployeeId int primary key,
+FirstName varchar(50),
+LastName varchar(50) ,
+DateOfBirth date,
+Gender varchar(10),
+email varchar(100),
+PhoneNumber varchar(15),
+Address Text,
+Position varchar(50),
+JoiningDate Date,
+TerminationDate date);
 
-CREATE TABLE Tax (
-    TaxID INT PRIMARY KEY AUTO_INCREMENT,
-    EmployeeID INT,
-    TaxYear INT,
-    TaxableIncome DECIMAL(10,2),
-    TaxAmount DECIMAL(10,2),
-    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
-);
+Create Table Payroll(
+PayrollId int primary key auto_increment ,
+EmployeeId int,
+PayPeriodStartDate date,
+PayPeriodEndDate date,
+BasicSalary decimal(10,2),
+OverTimePay decimal(10,2),
+Deductions decimal(10,2),
+NetSalary decimal(10,2),
+foreign key(EmployeeId) references Employee(EmployeeId) on delete cascade);
 
-CREATE TABLE FinancialRecord (
-    RecordID INT PRIMARY KEY AUTO_INCREMENT,
-    EmployeeID INT,
-    RecordDate DATE,
-    Description VARCHAR(255),
-    Amount DECIMAL(10,2),
-    RecordType VARCHAR(50),
-    FOREIGN KEY (EmployeeID) REFERENCES Employee(EmployeeID)
-);
+Create Table Tax(
+TaxId int primary key auto_increment,
+EmployeeId int,
+TaxYear int,
+TaxableIncome decimal(10,2),
+TaxAmount decimal(10,2),
+Foreign key(EmployeeId) References Employee(EmployeeId) on delete cascade);
+
+Create Table FinancialRecord(
+RecordId int primary key auto_increment,
+EmployeeId int,
+RecordDate date,
+Description text,
+Amount decimal(10,2),
+RecordType varchar(50),
+foreign key(EmployeeId) references employee(EmployeeId) on delete cascade);
+
+
+select * from employee;
+select * from payroll;
+
