@@ -13,7 +13,6 @@ package dao;
 
 import entity.Doctor;
 import util.DBConnUtil;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;

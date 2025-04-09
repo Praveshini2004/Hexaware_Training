@@ -47,7 +47,7 @@ public class MainModule {
             System.out.println("0. Exit");
             System.out.print("Enter your choice: ");
             choice = sc.nextInt();
-            sc.nextLine(); // Consume newline
+            sc.nextLine(); 
 
             try {
                 switch (choice) {
@@ -67,7 +67,7 @@ public class MainModule {
                         System.out.print("Address: ");
                         String address = sc.nextLine();
                         Patient patient = new Patient(pid, pfname, plname, dob, gender, contact, address);
-                        System.out.println(patientService.addPatient(patient) ? "✅ Patient added." : "❌ Failed.");
+                        System.out.println(patientService.addPatient(patient) ? " Patient added." : " Failed.");
                         break;
 
                     case 2:
@@ -86,18 +86,18 @@ public class MainModule {
                         System.out.print("Address: ");
                         address = sc.nextLine();
                         Patient updatedPatient = new Patient(pid, pfname, plname, dob, gender, contact, address);
-                        System.out.println(patientService.updatePatient(updatedPatient) ? "✅ Updated." : "❌ Failed.");
+                        System.out.println(patientService.updatePatient(updatedPatient) ? " Updated." : " Failed.");
                         break;
 
                     case 3:
                         System.out.print("Patient ID to delete: ");
-                        System.out.println(patientService.deletePatient(sc.nextInt()) ? "✅ Deleted." : "❌ Failed.");
+                        System.out.println(patientService.deletePatient(sc.nextInt()) ? " Deleted." : " Failed.");
                         break;
 
                     case 4:
                         List<Patient> patients = patientService.getAllPatients();
                         for (Patient pat : patients) {
-                            pat.printDetails(); // uses custom method
+                            pat.printDetails(); 
                         }
                         break;
 
@@ -113,7 +113,7 @@ public class MainModule {
                         System.out.print("Contact Number: ");
                         String dcontact = sc.nextLine();
                         Doctor doctor = new Doctor(did, dfname, dlname, spec, dcontact);
-                        System.out.println(doctorService.addDoctor(doctor) ? "✅ Doctor added." : "❌ Failed.");
+                        System.out.println(doctorService.addDoctor(doctor) ? " Doctor added." : " Failed.");
                         break;
 
                     case 6:
@@ -128,25 +128,25 @@ public class MainModule {
                         System.out.print("Contact Number: ");
                         dcontact = sc.nextLine();
                         Doctor updatedDoctor = new Doctor(did, dfname, dlname, spec, dcontact);
-                        System.out.println(doctorService.updateDoctor(updatedDoctor) ? "✅ Updated." : "❌ Failed.");
+                        System.out.println(doctorService.updateDoctor(updatedDoctor) ? " Updated." : " Failed.");
                         break;
 
                     case 7:
                         System.out.print("Doctor ID to delete: ");
-                        System.out.println(doctorService.deleteDoctor(sc.nextInt()) ? "✅ Deleted." : "❌ Failed.");
+                        System.out.println(doctorService.deleteDoctor(sc.nextInt()) ? " Deleted." : " Failed.");
                         break;
 
                     case 8:
                         List<Doctor> doctors = doctorService.getAllDoctors();
                         for (Doctor d : doctors) {
-                            d.printDetails(); // custom method
+                            d.printDetails(); 
                         }
                         break;
 
                     case 9:
                         System.out.print("Enter Appointment ID: ");
                         Appointment appt = appointmentService.getAppointmentById(sc.nextInt());
-                        System.out.println(appt != null ? appt.toString() : "❌ Appointment Not Found");
+                        System.out.println(appt != null ? appt.toString() : " Appointment Not Found");
                         break;
 
                     case 10:
@@ -154,11 +154,11 @@ public class MainModule {
                         int patientId = sc.nextInt();
                         List<Appointment> patList = appointmentService.getAppointmentsForPatient(patientId);
                         if (patList.isEmpty()) {
-                            System.out.println("❌ No appointments found for Patient ID: " + patientId);
+                            System.out.println(" No appointments found for Patient ID: " + patientId);
                         } else {
-                            System.out.println("✅ Appointments for Patient ID " + patientId + ":");
+                            System.out.println(" Appointments for Patient ID " + patientId + ":");
                             for (Appointment a : patList) {
-                                a.printDetails(); // use method, not lambda
+                                a.printDetails(); 
                             }
                         }
                         break;
@@ -168,7 +168,7 @@ public class MainModule {
                         int doctorId = sc.nextInt();
                         List<Appointment> docList = appointmentService.getAppointmentsForDoctor(doctorId);
                         if (docList.isEmpty()) {
-                            System.out.println("❌ No appointments found for Doctor ID: " + doctorId);
+                            System.out.println(" No appointments found for Doctor ID: " + doctorId);
                         } else {
                             for (Appointment a : docList) {
                                 a.printDetails();
@@ -185,7 +185,7 @@ public class MainModule {
                         String date = sc.nextLine();
                         String desc = sc.nextLine();
                         Appointment newAppt = new Appointment(aid, pidA, didA, date, desc);
-                        System.out.println(appointmentService.scheduleAppointment(newAppt) ? "✅ Scheduled." : "❌ Failed.");
+                        System.out.println(appointmentService.scheduleAppointment(newAppt) ? " Scheduled." : " Failed.");
                         break;
 
                     case 13:
@@ -197,25 +197,25 @@ public class MainModule {
                         String dateU = sc.nextLine();
                         String descU = sc.nextLine();
                         Appointment updateAppt = new Appointment(aidU, pidU, didU, dateU, descU);
-                        System.out.println(appointmentService.updateAppointment(updateAppt) ? "✅ Updated." : "❌ Failed.");
+                        System.out.println(appointmentService.updateAppointment(updateAppt) ? " Updated." : " Failed.");
                         break;
 
                     case 14:
                         System.out.print("Enter Appointment ID to cancel: ");
-                        System.out.println(appointmentService.cancelAppointment(sc.nextInt()) ? "✅ Cancelled." : "❌ Not Found.");
+                        System.out.println(appointmentService.cancelAppointment(sc.nextInt()) ? " Cancelled." : " Not Found.");
                         break;
 
                     case 0:
-                        System.out.println("✅ Thank you! Exiting system...");
+                        System.out.println(" Thank you! Exiting system...");
                         break;
 
                     default:
-                        System.out.println("❌ Invalid option! Try again.");
+                        System.out.println(" Invalid option! Try again.");
                 }
             } catch (PatientNumberNotFoundException e) {
-                System.err.println("❗ Error: " + e.getMessage());
+                System.err.println(" Error: " + e.getMessage());
             } catch (Exception e) {
-                System.err.println("❌ Unexpected error occurred.");
+                System.err.println(" Unexpected error occurred.");
                 e.printStackTrace();
             }
         } while (choice != 0);
