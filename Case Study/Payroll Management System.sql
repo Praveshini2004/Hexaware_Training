@@ -2,7 +2,7 @@ Create Database Payxpert;
 Use Payxpert;
 
 Create Table Employee(
-EmployeeId int primary key,
+EmployeeId int primary key auto_increment,
 FirstName varchar(50),
 LastName varchar(50) ,
 DateOfBirth date,
@@ -43,6 +43,6 @@ RecordType varchar(50),
 foreign key(EmployeeId) references employee(EmployeeId) on delete cascade);
 
 
-select * from employee;
+select * from financialrecord;
 select * from payroll;
-
+select * from employee;
